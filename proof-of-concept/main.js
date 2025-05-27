@@ -20,16 +20,34 @@ import {
     serverTimestamp
 } from 'firebase/firestore';
 
-// Firebase configuration (replace with your actual config)
+// Firebase Configuration - Environment Variables Only
+// Get these values from Firebase Console → Project Settings → Your apps
 const firebaseConfig = {
-    // NOTE: Replace these with your actual Firebase project credentials
-    apiKey: "demo-api-key",
-    authDomain: "your-project.firebaseapp.com",
-    projectId: "your-project-id",
-    storageBucket: "your-project.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "demo-app-id"
+    apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+    authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
+
+// Validate that all required environment variables are present
+const requiredEnvVars = [
+    'VITE_FIREBASE_API_KEY',
+    'VITE_FIREBASE_AUTH_DOMAIN', 
+    'VITE_FIREBASE_PROJECT_ID',
+    'VITE_FIREBASE_STORAGE_BUCKET',
+    'VITE_FIREBASE_MESSAGING_SENDER_ID',
+    'VITE_FIREBASE_APP_ID'
+];
+
+const missingVars = requiredEnvVars.filter(varName => !import.meta.env[varName]);
+if (missingVars.length > 0) {
+    console.error('Missing required environment variables:', missingVars);
+    console.error('Please ensure you have copied .env.example to .env.local and filled in all values');
+    throw new Error(`Missing Firebase configuration: ${missingVars.join(', ')}`);
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -62,9 +80,9 @@ let tasksUnsubscribe = null;
 let isOnline = navigator.onLine;
 
 // Initialize the application
-document.addEventListener('DOMContentLoaded', initializeApp);
+document.addEventListener('DOMContentLoaded', initializeTaskApp);
 
-function initializeApp() {
+function initializeTaskApp() {
     setupEventListeners();
     setupConnectionMonitoring();
 
@@ -87,6 +105,10 @@ function initializeApp() {
 
 function setupEventListeners() {
     // Authentication
+    console.log('Setting up event listeners...');
+    console.log('Login button:', loginBtn);
+    console.log('Register button:', registerBtn);
+    
     loginBtn.addEventListener('click', handleLogin);
     registerBtn.addEventListener('click', handleRegister);
     logoutBtn.addEventListener('click', handleLogout);

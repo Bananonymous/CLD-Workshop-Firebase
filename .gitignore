@@ -17,6 +17,10 @@ build/
 .env.test.local
 .env.production.local
 
+# Firebase configuration is OK to track (it's meant to be public)
+# Only exclude if you have sensitive server-side configs
+# firebase-config.js  # Uncomment this line if you want to keep config private
+
 # Firebase
 .firebase/
 .firebaserc.local

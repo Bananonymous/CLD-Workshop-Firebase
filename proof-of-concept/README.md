@@ -278,3 +278,36 @@ firebase deploy  # Deploy to Firebase Hosting
 ---
 
 *This proof-of-concept demonstrates Firebase's capabilities for rapid development and cost-effective scaling, making it an attractive option for small and medium businesses looking to leverage cloud computing.*
+
+## 🔧 Quick Setup
+
+### Option 1: Automated Setup (Recommended)
+```bash
+git clone <repository-url>
+cd proof-of-concept
+npm install
+./setup.sh  # Automated setup script
+# Edit .env.local with your Firebase credentials
+npm run dev
+```
+
+### Option 2: Manual Setup
+```bash
+git clone <repository-url>
+cd proof-of-concept
+npm install
+
+# Copy the template
+cp .env.example .env.local
+
+# Edit .env.local with actual Firebase credentials
+# Get these from Firebase Console → Project Settings → Your apps
+
+npm run dev
+```
+
+### 🔒 Security Configuration
+- **NO sensitive data** is hardcoded in the source files
+- All Firebase credentials come from `.env.local` (excluded from git)
+- Firebase configuration is embedded in `main.js` with environment variable validation
+- See `../docs/firebase-security-guide.md` for team collaboration best practices

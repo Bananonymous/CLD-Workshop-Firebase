@@ -69,24 +69,34 @@ firebase init
 # Accept defaults for most options
 ```
 
-### 2. Configure Firebase in Your App
+### 2. Configure Environment Variables
 1. Go to Firebase Console > Project Settings
 2. Scroll down to "Your apps"
-3. Click "Add app" > Web app
+3. Click "Add app" > Web app (if not already created)
 4. Register app name: "Task Manager POC"
-5. Copy the config object
-6. Replace the config in `main.js`:
+5. Copy the config values
+6. Set up your environment:
 
-```javascript
-const firebaseConfig = {
-  apiKey: "your-actual-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "your-app-id"
-};
+```bash
+# Copy the environment template
+cp .env.example .env.local
+
+# Edit .env.local with your Firebase credentials
+# Use the values from Firebase Console
 ```
+
+**Example .env.local file:**
+```bash
+VITE_FIREBASE_API_KEY=AIzaSyC1234567890abcdefghijklmnopqrstuvw
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
+VITE_FIREBASE_APP_ID=1:123456789012:web:abcdef1234567890123456
+VITE_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
+```
+
+**🔒 Security Note**: Never commit `.env.local` to git - it contains your project credentials!
 
 ### 3. Deploy Security Rules
 ```bash
@@ -104,8 +114,6 @@ firebase deploy --only storage:rules
 # Start development server
 npm run dev
 
-# In another terminal, start Firebase emulators (optional)
-firebase emulators:start
 ```
 
 ### 2. Testing the Application
