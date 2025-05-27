@@ -1,0 +1,24 @@
+{
+  "name": "firebase-task-manager-poc",
+  "version": "1.0.0",
+  "description": "Firebase proof-of-concept: Task Management Application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "npm run build && firebase deploy"
+  },
+  "keywords": [
+    "firebase",
+    "task-management",
+    "real-time",
+    "proof-of-concept"
+  ],
+  "author": "CLD Workshop Team",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^11.8.1",
+    "vite": "^6.3.5"
+  }
+}
